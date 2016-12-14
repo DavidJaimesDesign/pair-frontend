@@ -58,6 +58,7 @@ class App extends Component {
     });
     this.socket.on( 'post', () => {
       this.fetchData();
+	//the client sound sound play should be here?
     });
   }
 

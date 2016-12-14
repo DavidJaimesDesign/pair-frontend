@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const io = require('socket');
 const campers = require('./campers')
 var convertToMS = require( './convertToMS' );
 
@@ -60,6 +60,15 @@ app.delete('/api/v1/posts/:id', (req, res) => {
   }
   res.status(400).send();
 });
+
+//Audio notification using socket
+io.on('connection', function(socket){
+	console.log("user connected") 
+	socket.on('card posted',function(data){
+		//something should go here to verify that a card was posted
+		socket.broadcast.emit('card was posted')
+	})
+})
 
 app.listen(3001, () => {
   console.log('Server started on port 3001...');
